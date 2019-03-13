@@ -1,0 +1,21 @@
+<button onclick="@Liked" 
+        class="btn @( likedCount == 0 ? "btn-outline-secondary" : "btn-outline-danger" )">
+    <i class="far fa-heart"></i>
+    @likedCount
+</button>
+
+@functions {
+    [Parameter] int InitialLikedCount { get; set; }
+
+    int likedCount = 0;
+
+    protected override void OnInit()
+    {
+        likedCount = InitialLikedCount;
+    }
+
+    void Liked()
+    {
+        likedCount++;
+    }
+}

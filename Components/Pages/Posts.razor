@@ -1,0 +1,34 @@
+@page "/posts"
+@using RazorApp.Services
+@inject BlogService blogService
+
+<h1>Posts</h1>
+
+@if (posts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var post in posts)
+    {
+        <div class="card" style="width: 36rem;">
+            <div class="card-body">
+                <h1 class="card-title">@post.Title</h1>
+                <p class="card-text">@post.Content</p>
+            </div>
+            <div class="card-footer">
+                <LikeButton InitialLikedCount="5" />
+            </div>
+        </div>
+    }
+}
+
+@functions {
+    Post[] posts;
+
+    protected override async Task OnInitAsync()
+    {
+        posts = await blogService.GetPostsAsync();
+    }
+}
